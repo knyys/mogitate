@@ -1,0 +1,14 @@
+
+.delete-button{
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    cursor: pointer;
+}
+
+.custom-icon {
+    font-size: 30px; /* アイコンのサイズを変更 */
+    color: red; /* アイコンの色を変更 */
+    margin: 10px; /* アイコンの余白を設定 */
+    
+}

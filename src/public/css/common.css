@@ -1,0 +1,19 @@
+html,
+body {
+    height: 100%;
+}
+
+.header {
+    background: white;
+}
+
+.header__inner {
+    margin: 10px 10px 10px 20px;
+    padding: 20px 15px;
+}
+
+.header__logo {
+    color: #ffd700;
+    font-size: 24px;
+    text-decoration: none;
+}
