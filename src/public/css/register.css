@@ -1,0 +1,72 @@
+.register-page{
+    position: relative;
+    width: 60%;
+    height: 100%;
+    position: relative;
+    top: 10%;
+    left: 20%;
+    justify-content: center;
+}
+
+.register-page__header{
+    font-size: 30px;
+}
+
+.register-page__content{
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+.register-page__content input{
+    width: 100%;
+    height: 40px;
+    margin-bottom: 40px;
+    font-size: 16px;
+}
+
+.radio-group {
+    display: flex; /* 子要素を横並びにする */
+    gap: 10px; /* ボタン間の余白 */
+    width: 80%; /* 横幅80% */
+}
+
+.radio-group input[type="radio"] {
+    width: auto; /* ラジオボタンの幅をデフォルトに戻す */
+    height: auto; /* ラジオボタンの高さをデフォルトに戻す */
+    margin-right: 5px; /* ボタンとラベルの間の余白 */
+}
+
+.register-page__content textarea{
+    width: 100%;
+}
+
+.register-page__button{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    
+}
+
+.register-page__button a{
+    text-decoration: none;
+    border: 1px solid #dcdcdc;
+    background-color: #dcdcdc;
+    margin-right: 5px;
+    width: 200px;
+    height: 40px;
+    padding: auto;
+    border-radius: 5px;
+    margin-top: 20px;
+    text-align: center;
+}
+.register-page__button button{
+    border: 1px solid #ffd700;
+    background-color: #ffd700;
+    margin-left: 5px;
+    cursor:pointer;
+    width: 200px;
+    height: 40px;
+    padding: auto;
+    border-radius: 5px;
+    margin-top: 20px;
+    text-align: center;
+}

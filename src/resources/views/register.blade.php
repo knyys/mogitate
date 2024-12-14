@@ -11,19 +11,21 @@
         商品登録
     </h2>
     <div class="register-page__content">
-        <label>商品名</label>
-        <input type="text" name="name" placeholder="商品名を入力" />
-        <label>値段</label>
-        <input type="text" name="price" placeholder="値段を入力" />
-        <label>商品画像</label>
+        <label>商品名</label></br>
+        <input type="text" name="name" placeholder="商品名を入力" /></br>
+        <label>値段</label></br>
+        <input type="text" name="price" placeholder="値段を入力" /></br>
+        <label>商品画像</label></br>
         <!--画像を選択できるようにする-->
-        <label>季節</label>
+        <label>季節</label></br>
+        <div class=radio-group>
         <input type="radio" name="spring"/>春
         <input type="radio" name="summer"/>夏
         <input type="radio" name="autum"/>秋
         <input type="radio" name="winter"/>冬
-        <label>商品説明</label>
-        <textarea name="text" rows="4" cols="40"></textarea>
+        </div></br>
+        <label>商品説明</label></br>
+        <textarea name="text" rows="6" cols="40"></textarea>
     </div>
     <div class="register-page__button">
         <a href="/products">戻る</a>
@@ -31,6 +33,7 @@
             @csrf
             <button>登録</button>
         </form>
+
     </div>
 </div>
 @endsection
