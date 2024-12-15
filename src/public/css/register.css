@@ -1,4 +1,4 @@
-.register-page{
+.register-page {
     position: relative;
     width: 60%;
     height: 100%;
@@ -8,45 +8,63 @@
     justify-content: center;
 }
 
-.register-page__header{
+.register-page__header {
     font-size: 30px;
 }
 
-.register-page__content{
+.register-page__content {
     font-size: 20px;
     margin-bottom: 10px;
 }
-.register-page__content input{
+
+.register-page__label--required {
+    border: 1px solid red;
+    background-color: red;
+    color: white;
+    margin: auto;
+    padding: auto;
+    font-size: 14px;
+}
+
+.register-page__content input {
     width: 100%;
     height: 40px;
     margin-bottom: 40px;
     font-size: 16px;
 }
 
-.radio-group {
+.checkbox-group {
     display: flex; /* 子要素を横並びにする */
     gap: 10px; /* ボタン間の余白 */
     width: 80%; /* 横幅80% */
 }
 
-.radio-group input[type="radio"] {
-    width: auto; /* ラジオボタンの幅をデフォルトに戻す */
-    height: auto; /* ラジオボタンの高さをデフォルトに戻す */
-    margin-right: 5px; /* ボタンとラベルの間の余白 */
+.checkbox-group input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
 }
 
-.register-page__content textarea{
+.checkbox-group input[type="checkbox"]:checked {
+    background-color: black;
+}
+
+.register-page__content textarea {
     width: 100%;
 }
 
-.register-page__button{
+.register-page__button {
     display: flex;
     justify-content: center;
     width: 100%;
-    
 }
 
-.register-page__button a{
+.register-page__button a {
     text-decoration: none;
     border: 1px solid #dcdcdc;
     background-color: #dcdcdc;
@@ -58,15 +76,24 @@
     margin-top: 20px;
     text-align: center;
 }
-.register-page__button button{
+.register-page__button button {
     border: 1px solid #ffd700;
     background-color: #ffd700;
     margin-left: 5px;
-    cursor:pointer;
+    cursor: pointer;
     width: 200px;
     height: 40px;
     padding: auto;
     border-radius: 5px;
     margin-top: 20px;
     text-align: center;
+}
+
+.alert {
+    color: red;
+    font-size: 14px;
+    text-align: left;
+}
+.alert li {
+    list-style-type: none;
 }

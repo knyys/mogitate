@@ -32,7 +32,7 @@ class ProductRequest extends FormRequest
         ];
     }
 
-    public function message()
+    public function messages()
     {
         return[
         'product_name.required' => '商品名を入力してください',
