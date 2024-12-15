@@ -49,19 +49,29 @@
     height: 40px;
     margin-bottom: 20px;
 }
-.radio-group {
+.checkbox-group {
     display: flex; /* 子要素を横並びにする */
     gap: 10px; /* ボタン間の余白 */
     width: 80%; /* 横幅80% */
 }
 
-.radio-group input[type="radio"] {
-    width: auto; /* ラジオボタンの幅をデフォルトに戻す */
-    height: auto; /* ラジオボタンの高さをデフォルトに戻す */
-    margin-right: 5px; /* ボタンとラベルの間の余白 */
+.checkbox-group input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
 }
 
-.product-detail {
+.checkbox-group input[type="checkbox"]:checked {
+    background-color: black;
+    
+}
+
+.product-description {
     width: 100%;
     font-size: 20px;
 }
@@ -82,7 +92,7 @@
     margin-right: 5px;
     text-align: center;
 }
-.save-button {
+.update-button {
     border: 1px solid #ffd700;
     background-color: #ffd700;
     border-radius: 5px;
@@ -105,4 +115,13 @@
     font-size: 30px; /* アイコンのサイズを変更 */
     color: red; /* アイコンの色を変更 */
     margin: 10px; /* アイコンの余白を設定 */
+}
+
+.alert{
+    color: red;
+    font-size: 14px;
+    text-align: left;
+}
+.alert li{
+    list-style-type: none;
 }

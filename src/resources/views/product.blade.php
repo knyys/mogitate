@@ -11,33 +11,81 @@
         <div class="product-content__image">
             <img src="" alt="商品画像"></br>
             <button>ファイルを選択</button>
+            <div class="alert">
+                @if($errors->has('image'))
+                <ul>
+                    @foreach($errors->get('image') as $error)
+                     <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                @endif
+            </div>
         </div>
 
         <div class="product-content__detail">
             <label>商品名</label></br>
             <input type="text" name="name" value="変数で代入" /></br>
+                <div class="alert">
+                    @if($errors->has('product_name'))
+                    <ul>
+                        @foreach($errors->get('product_name') as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                    @endif
+                </div></br>
             <label>値段</label></br>
             <input type="text" name="price" value="変数で代入" /></br>
+                <div class="alert">
+                    @if($errors->has('price'))
+                    <ul>
+                        @foreach($errors->get('price') as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                    @endif
+                </div>
+
             <label>季節</label></br>
-            <div class="radio-group">
-            <input type="radio" name="spring"/>春
-            <input type="radio" name="summer"/>夏
-            <input type="radio" name="autum"/>秋
-            <input type="radio" name="winter"/>冬
+            <div class="checkbox-group">
+            <input type="checkbox" name="season_name[]"/>春
+            <input type="checkbox" name="season_name[]"/>夏
+            <input type="checkbox" name="season_name[]"/>秋
+            <input type="checkbox" name="season_name[]"/>冬
             </div>
+                <div class="alert">
+                    @if($errors->has('season_name'))
+                    <ul>
+                        @foreach($errors->get('season_name') as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                    @endif
+                </div>
+
         </div>
     </div>
-    <div class="product-detail">
+    <div class="product-description">
         <label>商品説明</label></br>
-        <textarea name="name"  rows="4" cols="40" value="変数で代入"></textarea>
+        <textarea name="description"  rows="4" cols="40" value="変数で代入"></textarea>
+            <div class="alert">
+                @if($errors->has('description'))
+                <ul>
+                    @foreach($errors->get('description') as $error)
+                     <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                @endif
+            </div>
+
     </div>
 </div>
 
 <div class="detail-page__button">
     <a class="return-button" href="/products">戻る</a>
-    <form action="" method="">
+    <form action="/products/1" method="post">
         @csrf
-        <button class="save-button">変更を保存</button>
+        <button class="update-button">変更を保存</button>
     </form>
     <form action="" method="post">
         <!--@method('DELETE')-->
