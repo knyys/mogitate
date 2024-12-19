@@ -1,14 +1,19 @@
-.detail-page,
-.detail-page__button {
+.detail-page {
+    width: 100%;
+    height: 100%;
+    background-color: #f5f5f5;
+    padding-bottom: 100px;
+    padding-top: 100px;
+}
+
+.product-content,
+.detail-page__button,
+.product-description {
     width: 60%;
     height: 100%;
     position: relative;
     top: 10%;
     left: 20%;
-}
-
-.product-content,
-.detail-page__button {
     display: flex;
 }
 
@@ -26,40 +31,50 @@
     margin-right: 5px;
 }
 
-.product-content__image button {
-    width: 30%;
-    height: 20%;
-    padding: auto;
-    margin-top: 5px;
+.product-content__image-label {
     border: 1px solid black;
+    border-radius: 3px;
     background-color: #dcdcdc;
-    font-size: 20px;
+    margin-right: 5px;
+    margin-top: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.product-content__image input {
+    display: none;
 }
 
 .product-content__detail {
-    margin: 0 0 10px 5px;
+    padding-left: 40px;
     font-size: 20px;
     width: 50%;
     height: 70%;
-    padding: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .product-content__detail input {
-    width: 80%;
+    width: 100%;
     height: 40px;
-    margin-bottom: 20px;
+    font-size: 16px;
+    margin-bottom: 5px;
+    border: 1px solid #dcdcdc;
+    border-radius: 3px;
 }
 .checkbox-group {
-    display: flex; /* 子要素を横並びにする */
-    gap: 10px; /* ボタン間の余白 */
-    width: 80%; /* 横幅80% */
+    display: flex;
+    gap: 10px;
+    width: 80%;
+    justify-content: left;
+    padding: auto;
 }
 
 .checkbox-group input[type="checkbox"] {
     appearance: none;
     -webkit-appearance: none;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     border: 1px solid black;
     border-radius: 50%;
     outline: none;
@@ -68,12 +83,19 @@
 
 .checkbox-group input[type="checkbox"]:checked {
     background-color: black;
-    
 }
 
 .product-description {
-    width: 100%;
     font-size: 20px;
+    flex-direction: column;
+}
+
+.product-description textarea {
+    width: 100%;
+    font-size: 16px;
+    padding: 10px 5px;
+    border: 1px solid #dcdcdc;
+    border-radius: 3px;
 }
 
 .detail-page__button {
@@ -87,10 +109,11 @@
     border-radius: 5px;
     width: 20%;
     height: 40px;
-    padding: auto;
     margin-top: 20px;
     margin-right: 5px;
+    font-size: 16px;
     text-align: center;
+    padding: 5px 0 5px 0;
 }
 .update-button {
     border: 1px solid #ffd700;
@@ -102,6 +125,8 @@
     margin-top: 20px;
     margin-right: 5px;
     text-align: center;
+    font-size: 16px;
+    padding: 5px 50px;
 }
 
 .delete-button {
@@ -112,16 +137,18 @@
 }
 
 .custom-icon {
-    font-size: 30px; /* アイコンのサイズを変更 */
-    color: red; /* アイコンの色を変更 */
-    margin: 10px; /* アイコンの余白を設定 */
+    font-size: 30px; /* アイコンのサイズ*/
+    color: red; /* アイコンの色 */
+    margin: 10px; /* アイコンの余白 */
+    padding-top: 15px;
 }
 
-.alert{
+.alert {
     color: red;
     font-size: 14px;
     text-align: left;
+    margin-bottom: 20px;
 }
-.alert li{
+.alert li {
     list-style-type: none;
 }

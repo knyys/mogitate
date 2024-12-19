@@ -1,2 +1,2 @@
-*
-!.gitignore
+# storage/app/public内のすべてのファイルをGitで管理する
+!*
