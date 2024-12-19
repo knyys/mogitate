@@ -1,3 +1,5 @@
+# app内のすべてのファイルを無視する
 *
-!public/
-!.gitignore
+# publicディレクトリ内のファイルを無視しない
+!/public
+!/public/*

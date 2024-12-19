@@ -28,7 +28,8 @@ class ProductRequest extends FormRequest
             'price' => ['required', 'integer','min:0', 'max:10000'],
             'image' => ['required', 'mimes:png,jpeg', 'max:10240'],
             'description' => ['required', 'string', 'max:120'],
-            'season_name' => ['required', 'string', 'max:255'],
+            'season_name' => ['required', 'string', 'min:1','max:255','array'],
+            'season_name.*' => ['exists:seasons,name'], 
         ];
     }
 

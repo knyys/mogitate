@@ -8,9 +8,13 @@
 
 <div class="detail-page">
     <div class="product-content">
-        <div class="product-content__image">
-            <img src="" alt="商品画像"></br>
-            <button>ファイルを選択</button>
+        <form class="product-content__image" action="/products" method="post" enctype="multipart/form-data">
+            @csrf
+            <img src="{{ asset($product->image) }}" alt="商品画像"></br>
+            <label class="product-content__image-label" for="image">ファイルを選択</label>
+            <input type="file" name='image'>
+            <span> {{ basename($product->image) }}</span>
+
             <div class="alert">
                 @if($errors->has('image'))
                 <ul>
@@ -20,11 +24,11 @@
                 </ul>
                 @endif
             </div>
-        </div>
+        </form>
 
         <div class="product-content__detail">
-            <label>商品名</label></br>
-            <input type="text" name="name" value="変数で代入" /></br>
+            <label>商品名</label>
+            <input type="text" name="name" value="{{ $product->name }}" />
                 <div class="alert">
                     @if($errors->has('product_name'))
                     <ul>
@@ -33,9 +37,9 @@
                         @endforeach
                     </ul>
                     @endif
-                </div></br>
-            <label>値段</label></br>
-            <input type="text" name="price" value="変数で代入" /></br>
+                </div>
+            <label>値段</label>
+            <input type="text" name="price" value="{{ $product->price }}" />
                 <div class="alert">
                     @if($errors->has('price'))
                     <ul>
@@ -46,12 +50,13 @@
                     @endif
                 </div>
 
-            <label>季節</label></br>
+            <label>季節</label>
             <div class="checkbox-group">
-            <input type="checkbox" name="season_name[]"/>春
-            <input type="checkbox" name="season_name[]"/>夏
-            <input type="checkbox" name="season_name[]"/>秋
-            <input type="checkbox" name="season_name[]"/>冬
+                @foreach($seasons as $seasonId => $seasonName)
+                    <input type="checkbox" name="season_name[]" value="{{ $seasonId }}" 
+                        @if(in_array($seasonId, old('season_name', $seasonIds))) checked @endif />
+                    {{ $seasonName }}
+                @endforeach
             </div>
                 <div class="alert">
                     @if($errors->has('season_name'))
@@ -66,8 +71,8 @@
         </div>
     </div>
     <div class="product-description">
-        <label>商品説明</label></br>
-        <textarea name="description"  rows="4" cols="40" value="変数で代入"></textarea>
+        <label>商品説明</label>
+        <textarea name="description" rows="6" cols="40">{{ $product->description }}</textarea>
             <div class="alert">
                 @if($errors->has('description'))
                 <ul>
@@ -79,23 +84,26 @@
             </div>
 
     </div>
-</div>
 
-<div class="detail-page__button">
-    <a class="return-button" href="/products">戻る</a>
-    <form action="/products/1" method="post">
-        @csrf
-        <button class="update-button">変更を保存</button>
-    </form>
-    <form action="" method="post">
-        <!--@method('DELETE')-->
-        @csrf
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-        <button class="delete-button" type="submit" onclick="return confirm('本当に削除しますか？');">
-        <i class="fas fa-trash custom-icon" aria-hidden="true"></i>
-        </button>
-    </form>
-</div>
-</div>
 
+    <div class="detail-page__button">
+        <a class="return-button" href="/products">戻る</a>
+        <form action="/products/{{ $product->id }}/update" method="post">
+            @method('PATCH')
+            @csrf
+            <input type="hidden" name="id" value="{{ $product['id'] }}">
+            <button class="update-button" type="submit">変更を保存</button>
+        </form>
+        <form action ="/products/{{ $product->id }}/delete" method="post">
+            @method('DELETE')
+            @csrf
+            <input type="hidden" name="id" value="{{ $product['id'] }}">
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+            <button class="delete-button" type="submit" onclick="return confirm('本当に削除しますか？');">
+                <i class="fas fa-trash custom-icon" aria-hidden="true"></i>
+            </button>
+        </form>
+
+    </div>
+</div>
 @endsection
