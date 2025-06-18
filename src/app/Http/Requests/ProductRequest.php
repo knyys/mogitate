@@ -26,11 +26,18 @@ class ProductRequest extends FormRequest
         return [
             'product_name' => ['required', 'string', 'max:255'],
             'price' => ['required', 'integer','min:0', 'max:10000'],
-            'image' => ['required', 'mimes:png,jpeg', 'max:10240'],
             'description' => ['required', 'string', 'max:120'],
-            'season_name' => ['required', 'string', 'min:1','max:255','array'],
-            'season_name.*' => ['exists:seasons,name'], 
+            'season_name' => ['required', 'array'],
+            'season_name.*' => ['required', 'string', 'max:255', 'exists:seasons,name'],
         ];
+        
+        if ($this->isMethod('post')) {
+            $rules['image'] = ['required', 'mimes:png,jpeg', 'max:10240'];
+        } else {
+            $rules['image'] = ['nullable', 'mimes:png,jpeg', 'max:10240'];
+        }
+
+        return $rules;
     }
 
     public function messages()
@@ -46,6 +53,7 @@ class ProductRequest extends FormRequest
         'description.required' => '商品説明を入力してください',
         'description.max' => '120文字以内で入力してください',
         'season_name.required' => '季節を選択してください',
+        'season_name.*.required' => '季節を選択してください',
         ];
     }
 

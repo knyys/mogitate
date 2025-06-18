@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Models\Season;
-
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -31,27 +31,28 @@ class ProductController extends Controller
     }
 
     public function search(Request $request)
-    {
-        $searchText = $request->input('text'); 
-        $sortOption = $request->input('sort', 'default');
-        $sortOption = $request->input('sort');
+{
+    $searchText = $request->input('text'); 
+    $sortOption = $request->input('sort', 'default');
 
-        $query = Product::query();
+    $query = Product::query();
 
-        if ($searchText) {
-            $query->where('name', 'like', '%' . $searchText . '%');
-        }
-
-        if ($sortOption === 'hight') {
-            $query->orderBy('price', 'desc');
-        } elseif ($sortOption === 'low') {
-            $query->orderBy('price', 'asc');
-        }
-
-        $products = $query->get();
-
-        return view('index', compact('products', 'sortOption'));
+    // 商品名で部分一致検索
+    if ($searchText) {
+        $query->where('name', 'like', '%' . $searchText . '%');
     }
+
+    // 並び替え
+    if ($sortOption === 'hight') {
+        $query->orderBy('price', 'desc');
+    } elseif ($sortOption === 'low') {
+        $query->orderBy('price', 'asc');
+    }
+
+    $products = $query->paginate(6)->appends($request->all()); // ← ページネーションでクエリ保持
+
+    return view('index', compact('products', 'sortOption', 'searchText'));
+}
 
     public function product($productId)
 {
@@ -75,24 +76,30 @@ class ProductController extends Controller
         if ($product->name !== $validatedData['product_name']) {
             $product->name = $validatedData['product_name'];
         }
-        if ($product->img !== $validatedData['img']) {
-            $product->img = $validatedData['img'];
-        }
+
         if ($product->price !== $validatedData['price']) {
             $product->price = $validatedData['price'];
         }
+
         if ($product->description !== $validatedData['description']) {
             $product->description = $validatedData['description'];
         }
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+            $product->image = Storage::url($imagePath);
+        }
+
         if ($product->isDirty()) {
             $product->save();
         }
-        $selectedSeasons = Season::whereIn('name', $validatedData['season_names'] ?? [])
-                                ->get();  
-        $selectedSeasonIds = $selectedSeasons->pluck('id')->toArray();
-        $product->seasons()->sync($selectedSeasonIds);
 
-        return redirect()->route('product') ;
+        $seasonNames = $validatedData['season_name'] ?? [];
+        $seasonIds = Season::whereIn('name', $seasonNames)->pluck('id')->toArray();
+        $product->seasons()->sync($seasonIds);
+
+        return redirect()->route('product', ['productId' => $product->id])->with('success', '商品情報が更新されました。');
+
     }
 
 
@@ -100,10 +107,10 @@ class ProductController extends Controller
     public function destroy($productId)
     {
         $product = Product::findOrFail($productId);
-        $product->seasons()->delete();
+        $product->seasons()->detach();
         $product->delete();
 
-        return redirect()->route('products');
+        return redirect()->route('products_list');
     }
 
 
@@ -114,29 +121,27 @@ class ProductController extends Controller
 
 
     public function register(ProductRequest $request)
-{
-
-    dd($request->input('season_name'));
+    {
 
         $productData = $request->only(['product_name', 'price', 'description']);
-        $productData['name'] = $request->only(['product_name'])['product_name']; 
-        $imagePath = $request->file('image')->store('images', 'public');
-        $imageUrl = Storage::url($imagePath);
-        $productData['image'] = $imageUrl;
+            $productData['name'] = $request->only(['product_name'])['product_name']; 
+            $imagePath = $request->file('image')->store('images', 'public');
+            $imageUrl = Storage::url($imagePath);
+            $productData['image'] = $imageUrl;
 
-        $product = Product::create($productData);
+            $product = Product::create($productData);
 
-    
-        $seasonNames = $request->input('season_name', []); 
-        $seasonIds = [];
+        
+            $seasonNames = $request->input('season_name', []); 
+            $seasonIds = [];
 
-        foreach ($seasonNames as $seasonName) {
-            $season = Season::firstOrCreate(['name' => $seasonName]);
-            $seasonIds[] = $season->id;
-        }
-        $product->seasons()->attach($seasonIds);
+            foreach ($seasonNames as $seasonName) {
+                $season = Season::firstOrCreate(['name' => $seasonName]);
+                $seasonIds[] = $season->id;
+            }
+            $product->seasons()->attach($seasonIds);
 
-        /*return redirect()->route('products');*/
-}
+            return redirect()->route('products_list');
+    }
 
 }
