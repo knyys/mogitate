@@ -6,7 +6,6 @@
 1.	`git clone git@github.com:knyys/mogitate.git`
 2.	`cd mogitate` 
 3.	`docker-compose up -d --build` 
-4.	`code .` 
 
 ※MySQLは、OSによって起動しない場合があるので、それぞれのPCに合わせてdocker-compose.ymlファイルを編集してください。
 
@@ -22,9 +21,10 @@ DB_DATABASE=laravel_db
 DB_USERNAME=laravel_user  
 DB_PASSWORD=laravel_pass
 ```
-4. `php artisan key:generate`  
-5. `php artisan migrate`  
-6. `php artisan db:seed`  
+4. `composer install`  
+5. `php artisan key:generate`  
+6. `php artisan migrate`  
+7. `php artisan db:seed`  
 
 #### 使用技術
 - PHP 7.4.9
